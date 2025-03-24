@@ -3,21 +3,21 @@
 Obtaining the optimal solution for the aforementioned objective function becomes increasingly challenging as the dimensionality of the data exceeds three. The core principle of the Expectation-Maximization (EM) algorithm is to enhance the following augmented log-likelihood function:
 
 
-The generalized hyperbolic random variable can be represented as a conditional normal distribution, so the EM algorithm can be applied to such, in which most of the parameters $(\mathbf{\Sigma, \mu, \gamma})$ can be estimated similar with a Gaussian distribution when other parameters \[(\lambda, \chi, \psi)\]$ are calibrated or assumed as some values. 
+The generalized hyperbolic random variable can be represented as a conditional normal distribution, so the EM algorithm can be applied to such, in which most of the parameters $(\mathbf{\Sigma, \mu, \gamma})$ can be estimated similar with a Gaussian distribution when other parameters $(\lambda, \chi, \psi)$ are calibrated or assumed as some values. 
 
 The EM algorithm framework of \cite{Mcneil_A_J_And_Frey_R_And_Embrechts_P_2015} for generalized hyperbolic distributions is the basis of our algorithm. Hu, in 2005, provided the unique algorithms for the limiting cases of generalized hyperbolic distributions parameters calibration \cite{Hu_Wenbo_2005}. In our part, we calibrate the estimation part of parameters $(\lambda, \chi, \psi)$ and use the online method in our estimation.  
 
 If the data $\mathbf{X} = \mathbf{x_1}, \cdots, \mathbf{x_n}$ where $\mathbf{X} \in \mathcal{R}^{d \times n}$, we want to fit this random variable by multivariate generalized hyperbolic distributions, the parameters are denoted by $\mathbf{\xi} = (\lambda, \chi, \psi, \mathbf{\Sigma,\mu, \gamma})$, the log-likelihood function we want to maximize is 
-\begin{equation}\label{log_likelihood_function}
+$$
     \log L\left(\mathbf{\xi} ; \mathbf{x}_1, \cdots, \mathbf{x}_n\right)=\sum_{i=1}^n \log f_{\mathbf{x}_{\mathbf{i}}}\left(\mathbf{x}_i ; \mathbf{\xi}\right)
-\end{equation}
+$$
 
 It is hard to obtain the optimal solution of the above objective function directly if the data dimension is more than three. The main idea of the EM algorithm is to optimize the following augmented log-likelihood function:
 
 
-\begin{equation}\label{augmented_log_likelihood_function}
+$$
     \log \tilde{L}\left(\mathbf{\xi} ; \mathbf{x}_1, \cdots, \mathbf{x}_n, w_1, \cdots, w_n\right)=\sum_{i=1}^n \log f_{\mathbf{x}_{\mathbf{i}}, W_i}\left(\mathbf{x}_{\mathbf{i}}, w_i ; \mathbf{\xi}\right)
-\end{equation}
+$$
 where the latent mixing variables $\omega_1, \cdots, \omega_n$ are observable at the beginning. 
 
 
