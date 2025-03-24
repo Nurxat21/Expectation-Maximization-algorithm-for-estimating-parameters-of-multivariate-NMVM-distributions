@@ -8,6 +8,7 @@ The generalized hyperbolic random variable can be represented as a conditional n
 The EM algorithm framework of \cite{Mcneil_A_J_And_Frey_R_And_Embrechts_P_2015} for generalized hyperbolic distributions is the basis of our algorithm. Hu, in 2005, provided the unique algorithms for the limiting cases of generalized hyperbolic distributions parameters calibration \cite{Hu_Wenbo_2005}. In our part, we calibrate the estimation part of parameters $(\lambda, \chi, \psi)$ and use the online method in our estimation.  
 
 If the data $\mathbf{X} = \mathbf{x_1}, \cdots, \mathbf{x_n}$ where $\mathbf{X} \in \mathcal{R}^{d \times n}$, we want to fit this random variable by multivariate generalized hyperbolic distributions, the parameters are denoted by $\mathbf{\xi} = (\lambda, \chi, \psi, \mathbf{\Sigma,\mu, \gamma})$, the log-likelihood function we want to maximize is 
+
 $$
     \log L\left(\mathbf{\xi} ; \mathbf{x}_1, \cdots, \mathbf{x}_n\right)=\sum_{i=1}^n \log f_{\mathbf{x}_{\mathbf{i}}}\left(\mathbf{x}_i ; \mathbf{\xi}\right)
 $$
@@ -18,6 +19,7 @@ It is hard to obtain the optimal solution of the above objective function direct
 $$
     \log \tilde{L}\left(\mathbf{\xi} ; \mathbf{x}_1, \cdots, \mathbf{x}_n, w_1, \cdots, w_n\right)=\sum_{i=1}^n \log f_{\mathbf{x}_{\mathbf{i}}, W_i}\left(\mathbf{x}_{\mathbf{i}}, w_i ; \mathbf{\xi}\right)
 $$
+
 where the latent mixing variables $\omega_1, \cdots, \omega_n$ are observable at the beginning. 
 
 
@@ -31,6 +33,7 @@ $$
 & \quad L_1\left(\mathbf{\mu}, \Sigma, \mathbf{\gamma} ; \mathbf{x}_1, \cdots, \mathbf{x}_n \mid w_1, \cdots, w_n\right)+L_2\left(\lambda, \chi, \psi ; w_1, \cdots, w_n\right)
 \end{aligned}
 $$
+
 where $\mathbf{X}|W \sim N(\mathbf{\mu} + \omega \gamma, \omega \mathbf{\Sigma})$ and $f_{\mathbf{X}|W}(x|w)$ is the density of conditional normal distribution and $h(w)$ is the density function of $Z$ of (\ref{NMVM}). Following the same procedure in the proof of (\ref{Prop_GH}), the density of the conditional normal distribution can be shown as 
 $$
     f_{\mathbf{X}|W}(x|w) = \frac{e^{\frac{-\mathcal{Q}(x)}{2\omega}}}{(2\pi \omega)^{\frac{d}{2}} |\mathbf{\Sigma}|^{\frac{1}{2}}} e^{(\mathbf{x - \mu})^{\top} \mathbf{\Sigma}^{-1} \mathbf{\gamma} } e^{-\frac{\omega}{2} \mathbf{\gamma^{\top} \Sigma^{-1} \gamma}}
