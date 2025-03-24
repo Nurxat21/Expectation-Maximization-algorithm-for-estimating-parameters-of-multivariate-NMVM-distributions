@@ -92,98 +92,105 @@ $$
 $$
 
 We can easily find the $\alpha$ by the root finding function of Python. Therefore, we can get the parameters as:
-\begin{equation}
+$$
     \begin{split}
         & \psi = \frac{\alpha \sum_{i=1}^n w_i^{-1} K_{\lambda}(\alpha)}{n K_{\lambda - 1}(\alpha)}\\
         & \chi = \frac{\alpha^2}{\psi}
     \end{split}
-\end{equation}
+$$
 
 Especially, when $\lambda=-0.5$, we have the normal inverse Gaussian distribution, and we are able to get $\alpha$ explicitly since $K_{-\lambda}(x)=K_\lambda(x)$ for any $\lambda$,
-\begin{equation}
+$$
     \alpha =\frac{2 \lambda}{1-n^{-2} \sum_{i=1}^n w_i \sum_{j=1}^n w_j^{-1}}
-\end{equation}
+$$
 
 When $\chi = 0$, and $\lambda >0$, in which it is VG distribution and we can get $\lambda$ by solving $\frac{\partial L_2}{\partial \lambda} = 0$ from the following equation:
-\begin{equation}\label{Solving_lambda_VG}
+$$
     \log (\lambda)-\log \left(n^{-1} \sum_{i=1}^n w_i\right)+n^{-1} \sum_{i=1}^n \log \left(w_i\right)-\phi(\lambda)=0.
-\end{equation}
+$$
 
 From the $\frac{\partial L_2}{\partial \psi} = 0$, and apply it into $\frac{\partial L_2}{\partial \lambda} = 0$, thus, we get (\ref{Solving_lambda_VG}), and the $\psi = \frac{2\lambda}{n^{-1} \sum_{i=1}^n w_i}$. 
 
 If we continue to assume $\lambda = -\frac{\nu}{2}$ and $\chi = \nu$, we obtain skew-t distribution with degree of freedom $\nu$. We still follows the standard routine, in which the only parameter $\nu$ can be solved by 
-\begin{equation}\label{Solving_v_Skew-t}
+$$
     log(\frac{\nu}{2}) + 1 - n^{-1} \sum_{i=1}^n w_i^{-1}-n^{-1} \sum_{i=1}^n \log \left(w_i\right) - \phi(\frac{\nu}{2}) = 0,
-\end{equation}
+$$
 As we mentioned, the latent mixing variables $\omega_i$ are not observable. Therefore, an iteration procedure consisting of E-step and M-step are needed, in which the E-step is called the estimation step. In E-step, the conditional expectation of the augmented log-likelihood function given current parameter estimates and sample data is calculated. Suppose that we are at step $k$, we need to calculate the following conditional expectation and get a new objective function to be maximized.
 
-\begin{equation}
+$$
     Q\left(\mathbf{\xi} ; \mathbf{\xi}^{[k]}\right)=E\left(\log \tilde{L}\left(\mathbf{\xi} ; \mathbf{x}_1, \cdots, \mathbf{x}_n, W_1, \cdots, W_n\right) \mid \mathbf{x}_1, \cdots, \mathbf{x}_n ; \mathbf{\xi}^{[k]}\right)
-\end{equation}
+$$
 In M-step, we maximize the $Q$ function above to get updated estimates $\xi^{[k+1]}$. From the (\ref{Log_L1}) and (\ref{Log_L2}), it shows that updating the $\omega_i$, $\omega^{-1}_i$ and $log(\omega_i)$ is equivalent to the conditional estimates $E(\mathbf{W_i|x_i;\xi^{[k]}})$, $E(\mathbf{W^{-1}_i|x_i;\xi^{[k]}})$ and $E(log\mathbf{(W_i)|x_i;\xi^{[k]}})$. Those conditional expectations can be calculated by following conditional density function:
-\begin{equation}
+$$
     f_{W \mid \mathbf{X}}(w \mid \mathbf{x} ; \mathbf{\xi})=\frac{f(\mathbf{x} \mid w ; \mathbf{\xi}) h(w ; \mathbf{\xi})}{f(\mathbf{x} ; \mathbf{\xi})}
-\end{equation}
+$$
 where we can get 
-\begin{equation}
+$$
     W_i \mid \mathbf{X_i} \sim N^- (\lambda - \frac{d}{2}, \mathcal{Q}(x_i) + \chi, \psi + \mathbf{\gamma^{\top} \Sigma^{-1} \gamma})
-\end{equation}
+$$
 
 For convenience, we use the standard notation of \cite{protassov2004based, Mcneil_A_J_And_Frey_R_And_Embrechts_P_2015, Hu_Wenbo_2005}, which shows as :
-\begin{equation}
+$$
     \delta_i^{[\cdot]}=E\left(W_i^{-1} \mid \mathbf{x}_i ; \mathbf{\xi}^{[\cdot]}\right), \eta_i^{[\cdot]}=E\left(W_i \mid \mathbf{x}_i ; \mathbf{\xi}^{[\cdot]}\right), \xi_i^{[\cdot]}=E\left(\log \left(W_i\right) \mid \mathbf{x}_i ; \mathbf{\xi}^{[\cdot]}\right),
-\end{equation}
+$$
 and 
-\begin{equation}
+
+$$
     \bar{\delta}=\frac{1}{n} \sum_1^n \delta_i, \bar{\eta}=\frac{1}{n} \sum_1^n \eta_i, \bar{\xi}=\frac{1}{n} \sum_1^n \zeta_i
-\end{equation}
+$$
+
 For the generalized hyperbolic distributions, we have 
-\begin{equation}
+
+$$
 \delta_i^{[k]}=\left(\frac{\mathcal{Q}^{[k]}_i+\chi^{[k]}}{\psi^{[k]}+\mathbf{\gamma}^{[k]} \Sigma^{[k]^{-1}} \mathbf{\gamma}^{[k]}}\right)^{-\frac{1}{2}} \frac{K_{\lambda-\frac{d}{2}-1}\left(\sqrt{\left(\mathcal{Q}^{[k]}_i+\chi^{[k]}\right)\left(\psi^{[k]}+\mathbf{\gamma}^{[k]^{\top}} \Sigma^{[k]-1} \mathbf{\gamma}^{[k]}\right)}\right)}{K_{\lambda-\frac{d}{2}}\left(\sqrt{\left(\mathcal{Q}^{[k]}_i+\chi^{[k]}\right)\left(\psi^{[k]}+\mathbf{\gamma}^{[k]^{\top}} \Sigma^{[k]^{-1}} \mathbf{\gamma}^{[k]}\right)}\right)}\\
-\end{equation}
+$$
 
-\begin{equation}
+$$
     \eta_i^{[k]}=\left(\frac{\mathcal{Q}^{[k]}_i+\chi^{[k]}}{\psi^{[k]}+\mathbf{\gamma}^{[k]^{\top}} \Sigma^{[k]^{-1}} \mathbf{\gamma}^{[k]}}\right)^{\frac{1}{2}} \frac{K_{\lambda-\frac{d}{2}+1}\left(\sqrt{\left(\mathcal{Q}^{[k]}_i+\chi^{[k]}\right)\left(\psi^{[k]}+\mathbf{\gamma}^{[k]^{\top}} \Sigma^{[k]^{-1}} \mathbf{\gamma}^{[k]}\right)}\right)}{K_{\lambda-\frac{d}{2}}\left(\sqrt{\left(\mathcal{Q}^{[k]}_i+\chi^{[k]}\right)\left(\psi^{[k]}+\mathbf{\gamma}^{[k]^{\top}} \Sigma^{[k]-1} \mathbf{\gamma}^{[k]}\right)}\right)}
-\end{equation}
+$$
 
-\begin{equation}
+$$
 \begin{aligned}
 \zeta_i^{[k]} & =\frac{1}{2} \log \left(\frac{\mathcal{Q}^{[k]}_i+\chi^{[k]}}{\psi^{[k]}+\mathbf{\gamma}^{[k]^{\top}} \Sigma^{[k]^{-1}} \mathbf{\gamma}^{[k]}}\right)+ \\
 & \frac{\left.\frac{\partial K_{\lambda-\frac{d}{2}+\alpha}\left(\sqrt{\left(\mathcal{Q}^{[k]}_i+\chi^{[k]}\right)\left(\psi^{[k]}+\mathbf{\gamma}^{[k]^{\top}} \Sigma^{[k]^{-1}} \mathbf{\gamma}^{[k]}\right)}\right)}{\partial \alpha}\right|_{\alpha=0}}{K_{\lambda-\frac{d}{2}}\left(\sqrt{\left(\mathcal{Q}^{[k]}_i+\chi^{[k]}\right)\left(\psi^{[k]}+\mathbf{\gamma}^{[k]^{\top}} \Sigma^{[k]^{-1}} \mathbf{\gamma}^{[k]}\right)}\right)} .
 \end{aligned}
-\end{equation}
+$$
 
 For the variance gamma distribution, we just need to set $\chi = 0$ in above equations, in which we have 
-\begin{equation}
+
+$$
     W_i \mid \mathbf{X_i} \sim N^- (\lambda - \frac{d}{2}, \mathcal{Q}(x_i), \psi + \mathbf{\gamma^{\top} \Sigma^{-1} \gamma})
-\end{equation}
+$$
+
 For the multivariate Skew-t distribution, we have 
-\begin{equation}
+
+$$
     W_i \mid \mathbf{X_i} \sim N^- (-\frac{d + \nu}{2}, \mathcal{Q}(x_i) + \nu, \mathbf{\gamma^{\top} \Sigma^{-1} \gamma})
-\end{equation}
+$$
+
 where $\delta^{[k]}$, $\eta^{[k]}$ and $\zeta_i^{[k]}$ show as 
-\begin{equation}
+$$
     \delta_i^{[k]}=\left(\frac{\mathcal{Q}^{[k]}_i+\nu^{[k]}}{\mathbf{\gamma}^{[k]^2} \Sigma^{[k]-1} \mathbf{\gamma}^{[k]}}\right)^{-\frac{1}{2}} \frac{K_{\frac{\nu+d+2}{2}}\left(\sqrt{\left(\mathcal{Q}^{[k]}_i+\nu^{[k]}\right)\left(\mathbf{\gamma}^{[k]^{\top}} \Sigma^{[k]^{-1}} \mathbf{\gamma}^{[k]}\right)}\right)}{K_{\frac{\nu+d}{2}}\left(\sqrt{\left(\mathcal{Q}^{[k]}_i+\nu^{[k]}\right)\left(\mathbf{\gamma}^{[k]^{\top} \Sigma^{[k]]^{-1}} \mathbf{\gamma}^{[k]}}\right)}\right)}
-\end{equation}
+$$
 
-\begin{equation}
+$$
     \eta_i^{[k]}=\left(\frac{\mathcal{Q}^{[k]}+\nu^{[k]}}{\mathbf{\gamma}^{[k]^{\top}} \Sigma^{[k]^{-1}} \mathbf{\gamma}^{[k]}}\right)^{\frac{1}{2}} \frac{K_{\frac{\nu+d-2}{2}}\left(\sqrt{\left(\mathcal{Q}^{[k]}+\nu^{[k]}\right)\left(\mathbf{\gamma}^{[k]^{\top}} \Sigma^{[k]^{-1}} \mathbf{\gamma}^{[k]}\right)}\right)}{K_{\frac{\nu+d}{2}}\left(\sqrt{\left(\mathcal{Q}^{[k]}+\nu^{[k]}\right)\left(\mathbf{\gamma}^{\left.[k]^{\top} \Sigma^{[k]}\right]^{-1}} \mathbf{\gamma}^{[k]}\right)}\right)}
-\end{equation}
+$$
 
-\begin{equation}
-    \begin{aligned}
+$$
+\begin{aligned}
 \zeta_i^{[k]} & =\frac{1}{2} \log \left(\frac{\mathcal{Q}^{[k]}+\nu^{[k]}}{\mathbf{\gamma}^{[k]^{\top}} \Sigma^{[k]^{-1}} \mathbf{\gamma}^{[k]}}\right)+ \\
 & \frac{\left.\frac{\partial K_{-\frac{\nu+d}{2}+\alpha}\left(\sqrt{\left(\mathcal{Q}^{[k]}+\nu^{[k]}\right)\left(\mathbf{\gamma}^{[k]^{\top}} \Sigma^{[k]^{-1}} \mathbf{\gamma}^{[k]}\right)}\right)}{\partial \alpha}\right|_{\alpha=0}}{K_{\frac{v_{+d}}{2}}\left(\sqrt{\left(\mathcal{Q}^{[k]}+\nu^{[k]}\right)\left(\mathbf{\gamma}^{[k]^{\top}} \Sigma^{[k]-1} \mathbf{\gamma}^{[k]}\right)}\right)} .
 \end{aligned}
-\end{equation}
+$$
 
 In the M-step, we need to replace the latent variables $\omega^{-1}_i$ by $\delta^{[k]}_i$, $\omega_i$ by $\eta^{[k]}_i$, $log(\omega_i)$ by $\zeta^{[k]}_i$ in the maximization. Thus, maximizing the conditional expectation of $L_1$, we can get the k-step estimations of $\mathbf{\gamma}^{[k+1]}$, $\mathbf{\mu}^{[k+1]}$ and $\mathbf{\Sigma}^{[k+1]}$. During the maximizing of conditional expectation of $L_2$, we need to solve (\ref{Solving_Equation_alpha}) to obtain the $\alpha^{[k+1]}$. When we get the $\alpha^{[k+1]}$, we can update the values of $\chi^{[k+1]}$ and $\psi^{[k+1]}$. 
 
 
 When we calibrating the parameter of GH distribution, we faced to an identification problem. In \cite{Mcneil_A_J_And_Frey_R_And_Embrechts_P_2015}, they used a fixed number $c$ to be the determinant of $\Sigma$, in which the number $c$ is the determinate of sample covariance matrix to solve such problem by using (\ref{Sigma_GH_estimation}) and set
-\begin{equation}\label{Sigma_K_1}
+$$
     \Sigma^{[k+1]}:=\frac{c^{1 / d} \Sigma^{[k+1]}}{\left|\Sigma^{[k+1]}\right|^{1 / d}}
-\end{equation}
+$$
 
 As mentioned in \cite{Hu_Wenbo_2005}, when $|\lambda|$ is large, the (\ref{Solving_Equation_alpha}) may be not equalled to zero so that we will minimize the square root of (\ref{Solving_Equation_alpha}) to update the $\alpha^{[k+1]}$. In \cite{Hu_Wenbo_2005}, he set $\chi$ or $\psi$ to be constant, when $|\lambda|$ is large. However, different choices of constant $\chi$ or $\psi$ would lead to different estimating speed, and it might crash in some special constant values. 
 
