@@ -23,18 +23,18 @@ where the latent mixing variables $\omega_1, \cdots, \omega_n$ are observable at
 
 By the mean-variance mixture definition of generalized hyperbolic distributions, the log-likelihood function can be rewritten as
 
-\begin{equation}\label{Log_likelihood_L1_L2}
+$$
 \begin{aligned}
 & \log \tilde{L}\left(\mathbf{\xi} ; \mathbf{x}_1, \cdots, \mathbf{x}_n, w_1, \cdots, w_n\right)= \\
 & \quad \sum_{i=1}^n \log f_{\mathbf{x}_i \mid W_i}\left(\mathbf{x}_i \mid w_i ; \mathbf{\mu}, \Sigma, \mathbf{\gamma}\right)+ \\
 & \quad \sum_{i=1}^n \log h_{W_i}\left(w_i ; \lambda, \chi, \psi\right)= \\
 & \quad L_1\left(\mathbf{\mu}, \Sigma, \mathbf{\gamma} ; \mathbf{x}_1, \cdots, \mathbf{x}_n \mid w_1, \cdots, w_n\right)+L_2\left(\lambda, \chi, \psi ; w_1, \cdots, w_n\right)
 \end{aligned}
-\end{equation}
+$$
 where $\mathbf{X}|W \sim N(\mathbf{\mu} + \omega \gamma, \omega \mathbf{\Sigma})$ and $f_{\mathbf{X}|W}(x|w)$ is the density of conditional normal distribution and $h(w)$ is the density function of $Z$ of (\ref{NMVM}). Following the same procedure in the proof of (\ref{Prop_GH}), the density of the conditional normal distribution can be shown as 
-\begin{equation}\label{PDF_Conditional_Normal}
+$$
     f_{\mathbf{X}|W}(x|w) = \frac{e^{\frac{-\mathcal{Q}(x)}{2\omega}}}{(2\pi \omega)^{\frac{d}{2}} |\mathbf{\Sigma}|^{\frac{1}{2}}} e^{(\mathbf{x - \mu})^{\top} \mathbf{\Sigma}^{-1} \mathbf{\gamma} } e^{-\frac{\omega}{2} \mathbf{\gamma^{\top} \Sigma^{-1} \gamma}}
-\end{equation}
+$$
 
 where 
 $$
@@ -43,50 +43,50 @@ $$
 
 From the (\ref{Log_likelihood_L1_L2}), the estimations of $(\mathbf{\mu, \Sigma, \gamma})$ and $(\lambda, \chi, \psi)$ can be separate by maximizing $L_1$ and $L_2$, respectively. 
 
-\begin{equation}\label{Log_L1}
+$$
     \begin{aligned}
     & L_1\left(\mathbf{\mu}, \Sigma, \mathbf{\gamma} ; \mathbf{x}_1, \cdots, \mathbf{x}_n \mid w_1, \cdots, w_n\right)= \\
     & \quad-\frac{n}{2} \log |\Sigma|-\frac{d}{2} \sum_{i=1}^n \log w_i+\sum_{i=1}^n\left(\mathbf{x}_i-\mathbf{\mu}\right)^{\top} \Sigma^{-1} \mathbf{\gamma} \\
     & \quad-\frac{1}{2} \sum_{i=1}^n \frac{1}{w_i} \mathcal{Q}_i -\frac{1}{2} \mathbf{\gamma}^{\top} \Sigma^{-1} \mathbf{\gamma} \sum_{i=1}^n w_i
     \end{aligned}
-\end{equation}
+$$
 
 And the log-likelihood function $L_2$ can be written as:
-\begin{equation}\label{Log_L2}
+$$
     \begin{aligned}
     & L_2\left(\lambda, \chi, \psi ; w_1, \cdots, w_n\right)= \\
     & \quad(\lambda-1) \sum_{i=1}^n \log w_i-\frac{\chi}{2} \sum_{i=1}^n w_i^{-1}-\frac{\psi}{2} \sum_{i=1}^n w_i-\frac{n \lambda}{2} \log \chi \\
     & \quad+\frac{n \lambda}{2} \log \psi-n \log \left(2 K_\lambda(\sqrt{\chi \psi})\right)
     \end{aligned}
-\end{equation}
+$$
 
 We take the partial derivative of $L_1$ concerning $\mathbf{\mu}$, $\mathbf{\gamma}$ and $\mathbf{\Sigma}$, which is the standard routine of optimization. From the partial derivatives equal to 0, we can get the following expressions:
-\begin{equation}\label{gamma_GH_estimation}
+$$
     \mathbf{\gamma}= \frac{n^{-1} \sum_{i=1}^n w_i^{-1}\left(\overline{\mathbf{x}}-\mathbf{x}_i\right)}{n^{-2}\left(\sum_{i=1}^n w_i\right)\left(\sum_{i=1}^n w_i^{-1}\right)-1} 
-\end{equation}
+$$
 
-\begin{equation}\label{mu_GH_estimation}
+$$
     \mathbf{\mu}= \frac{n^{-1} \sum_{i=1}^n w_i^{-1} \mathbf{x}_i-\mathbf{\gamma}}{n^{-1} \sum_{i=1}^n w_i^{-1}}
-\end{equation}
+$$
 
-\begin{equation}\label{Sigma_GH_estimation}
+$$
     \mathbf{\Sigma}=\frac{1}{n} \sum_{i=1}^n w_i^{-1}\left(\mathbf{x}_i-\mathbf{\mu}\right)\left(\mathbf{x}_i-\mathbf{\mu}\right)^{\top}-\frac{1}{n} \sum_{i=1}^n w_i \mathbf{\gamma} \mathbf{\gamma}^{\top}
-\end{equation}
+$$
 
 We maximize the (\ref{Log_L2}) to obtain the estimation of $\lambda, \chi \psi$. We first get the partial derivative concerning $\chi$ and $\psi$ and solve the next equations system. 
 
-\begin{equation}\label{Equations_System_L2}
+$$
 \left\{ 
     \begin{aligned}
     & \frac{\partial L_2}{\partial \chi}=0 \\
     & \frac{\partial L_2}{\partial \psi}=0
     \end{aligned} 
 \right.
-\end{equation}
+$$
 Solving (\ref{Equations_System_L2}) leads us to solve $\alpha = \sqrt{\chi \psi}$ from 
-\begin{equation}\label{Solving_Equation_alpha}
+$$
     n^2 K_{\lambda + 1}(\alpha) K_{\lambda -1}(\alpha) - \sum_{i=1}^n w_i^{-1} \sum_{i=1}^n w_i K^2_{\lambda}(\alpha) = 0
-\end{equation}
+$$
 
 We can easily find the $\alpha$ by the root finding function of Python. Therefore, we can get the parameters as:
 \begin{equation}
