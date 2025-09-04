@@ -324,10 +324,8 @@ class EM_algorithm:
         self.xi = (1 / 2) * np.log(self.P) + (derivative_alpha / kv(self.lambda_ - self.d / 2, np.sqrt(self.Q)))
 
     def Theta_func(self, theta):
-        mean_eta = np.mean(self.eta)
-        mean_delta = np.mean(self.delta)
-        term1 = mean_eta * mean_delta * pow(kv(self.lambda_, theta), 2)
-        term2 = kv(self.lambda_ - 1, theta) * kv(self.lambda_ + 1, theta)
+        term1 = pow(self.n, 2) * kv(self.lambda_ - 1, theta) * kv(self.lambda_ + 1, theta)
+        term2 = np.sum(self.delta) * np.sum(self.eta) * kv(self.lambda_, theta) * kv(self.lambda_, theta)
         return (term1 - term2) ** 2
 
     
@@ -336,14 +334,14 @@ class EM_algorithm:
         mean_xi = np.mean(self.xi)
         derivative_lambda_Bessel = Derivative_Bessel_Kv_lambda_(lambda_, inner)
         bessel_lambda_ab = kv(lambda_, inner)
-        term = (mean_xi - (0.5 * np.log(self.a)) + (0.5 * np.log(self.b)) + (derivative_lambda_Bessel / bessel_lambda_ab))
+        term = mean_xi - (0.5 * np.log(self.a)) + (0.5 * np.log(self.b)) - (derivative_lambda_Bessel / bessel_lambda_ab)
         return term ** 2
 
     def a_b_GH_update(self):
         self.theta = minimize(self.Theta_func, self.theta, method='Nelder-Mead').x
         epsi = kv(self.lambda_ - 1, self.theta) / (np.mean(self.delta) * kv(self.lambda_, self.theta))
         # Find a and b
-        b = self.theta / epsi
+        b = (self.theta) / epsi
 
         a = np.power(self.theta, 2) / b
         self.a = a
