@@ -1,4 +1,4 @@
-Given the data set \( X = \{x_1, \ldots, x_n\} \) where \( X \in \mathbb{R}^{d \times n} \), the objective is to fit this random variable using multivariate generalized hyperbolic distributions. The parameters associated with this distribution are represented as \( \xi = (\lambda, \chi, \psi, \Sigma, \mu, \gamma) \). The log-likelihood function that requires maximization is expressed as follows:
+Given the data set $X = \{x_1, \ldots, x_n\}$ where $X \in \mathbb{R}^{d \times n}$, the objective is to fit this random variable using multivariate generalized hyperbolic distributions. The parameters associated with this distribution are represented as $\xi = (\lambda, \chi, \psi, \Sigma, \mu, \gamma)$. The log-likelihood function that requires maximization is expressed as follows:
 
 $$
 \log L\left({\xi} ; {x}_1, \cdots, {x}_n\right)=\sum_{i=1}^n \log f_{{x}_{{i}}}\left({x}_i ; {\xi}\right).
@@ -10,7 +10,7 @@ $$
 \log \tilde{L}\left({\xi} ; {x}_1, \cdots, {x}_n, w_1, \cdots, w_n\right)=\sum_{i=1}^n \log f_{{x}_{{i}}, W_i}\left({x}_{{i}}, w_i ; {\xi}\right)
 $$
 
-where the latent mixing variables \(w_1, \cdots, w_n\) are not observable at the beginning. 
+where the latent mixing variables $w_1, \cdots, w_n$ are not observable at the beginning. 
 
 ---
 
@@ -27,7 +27,7 @@ $$
 \end{aligned}
 $$
 
-where \(X|W \sim N(\mu + w \gamma, w \Sigma)\).  
+where $X|W \sim N(\mu + w \gamma, w \Sigma)$.  
 
 The conditional normal density is
 
@@ -49,10 +49,10 @@ $$
 
 Thus, maximizing the likelihood can be separated:  
 
-- \(L_1(\mu, \Sigma, \gamma)\) for location, scale, skewness parameters.  
-- \(L_2(\lambda, \chi, \psi)\) for mixing parameters.  
+- $L_1(\mu, \Sigma, \gamma)$ for location, scale, skewness parameters.  
+- $L_2(\lambda, \chi, \psi)$ for mixing parameters.  
 
-#### \(L_1\)
+#### $L_1$
 
 $$
 \begin{aligned}
@@ -64,7 +64,7 @@ L_1 &= \log(n) - \frac{n}{2} \log |\Sigma|
 \end{aligned}
 $$
 
-#### \(L_2\)
+#### $L_2$
 
 $$
 \begin{aligned}
@@ -81,7 +81,7 @@ $$
 
 ### Estimation from first-order conditions
 
-From \(\partial L_1 / \partial \mu = 0\), \(\partial L_1 / \partial \gamma = 0\), \(\partial L_1 / \partial \Sigma = 0\):
+From $\partial L_1 / \partial \mu = 0$, $\partial L_1 / \partial \gamma = 0$, $\partial L_1 / \partial \Sigma = 0$:
 
 $$
 \gamma = \frac{n^{-1} \sum_{i=1}^n (x_i-\mu)}{n^{-1} \sum_{i=1}^n w_i},
@@ -96,13 +96,13 @@ $$
 - \frac{1}{n} \sum_{i=1}^n w_i \gamma \gamma^{T}.
 $$
 
-Maximization of \(L_2\) yields the system:
+Maximization of $L_2$ yields the system:
 
 $$
 \frac{\partial L_2}{\partial \chi} = 0, \quad \frac{\partial L_2}{\partial \psi} = 0.
 $$
 
-This reduces to solving for \(\alpha = \sqrt{\chi \psi}\):
+This reduces to solving for $\alpha = \sqrt{\chi \psi}$:
 
 $$
 n^2 K_{\lambda+1}(\alpha) K_{\lambda-1}(\alpha)
@@ -121,9 +121,9 @@ $$
 
 ### Special cases
 
-- **Normal Inverse Gaussian (NIG):** \(\lambda = -0.5\).  
-- **Variance Gamma (VG):** \(\chi=0, \lambda > 0\).  
-- **Skew-t:** \(\lambda = -\nu/2, \chi = \nu\).  
+- **Normal Inverse Gaussian (NIG):** $\lambda = -0.5$.  
+- **Variance Gamma (VG):** $\chi=0, \lambda > 0$.  
+- **Skew-t:** $\lambda = -\nu/2, \chi = \nu$.  
 
 Each case yields simplifications in the root-solving equations.
 
@@ -139,13 +139,13 @@ $$
 \zeta_i^{[k]}=E(\log W_i \mid x_i; \xi^{[k]}).
 $$
 
-These expectations are expressed in terms of modified Bessel functions \(K_\nu(\cdot)\).  
+These expectations are expressed in terms of modified Bessel functions $K_\nu(\cdot)$.  
 
 ---
 
 ### M-step
 
-Update rules at iteration \(k\):
+Update rules at iteration $k$:
 
 $$
 \gamma^{[k+1]} = \frac{\bar{x} - \mu^{[k]}}{\bar{\eta}^{[k]}},
@@ -166,12 +166,11 @@ $$
 \Sigma^{[k+1]} := \frac{c^{1/d} \Sigma^{[k+1]}}{|\Sigma^{[k+1]}|^{1/d}},
 $$
 
-where \(c = |\hat{\Sigma}_{\text{sample}}|\).
+where $c = |\hat{\Sigma}_{\text{sample}}|$.
 
 ---
 
 ### Practical notes
 
-- Iterative "online" updating of \(\mu, \gamma, \Sigma\) accelerates convergence.  
+- Iterative "online" updating of $\mu, \gamma, \Sigma$ accelerates convergence.  
 - This EM algorithm applies to GH, NIG, VG, and skew-t as special cases of the NMVM framework.  
-
